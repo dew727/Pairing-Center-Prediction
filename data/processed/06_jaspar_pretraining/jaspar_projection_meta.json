@@ -1,0 +1,8 @@
+{
+  "model": "facebook/esm2_t33_650M_UR50D",
+  "n_factors": 434,
+  "n_components": 12,
+  "motif_features": "mono(4)+dinucleotide(16)",
+  "source": "JASPAR CORE C2H2 zinc finger factors",
+  "insample_r2": 0.37289923742341147
+}

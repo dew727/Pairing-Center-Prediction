@@ -1,0 +1,13 @@
+baseline,paralog,neighbor,neighbor_cos,n_variable_positions,distance,skill,metric
+conserved-consensus,HIM-8,,,6,0.8327167344081142,0.0,euclidean
+conserved-consensus,ZIM-1,,,5,0.8327167344081141,0.0,euclidean
+conserved-consensus,ZIM-2,,,6,0.8327167344081142,0.0,euclidean
+conserved-consensus,ZIM-3,,,6,0.8327167344081142,0.0,euclidean
+nearest-neighbor (raw),HIM-8,ZIM-1,0.991,6,0.9574826113282312,-0.1498299142610593,euclidean
+nearest-neighbor (raw),ZIM-1,ZIM-3,0.993,5,1.2543999333224651,-0.5063945294843615,euclidean
+nearest-neighbor (raw),ZIM-2,ZIM-3,0.993,6,1.0962687337295833,-0.3164965809277256,euclidean
+nearest-neighbor (raw),ZIM-3,ZIM-1,0.993,6,1.1841194001700734,-0.42199544123696797,euclidean
+nearest-neighbor,HIM-8,ZIM-2,0.022,6,0.9065471553673686,-0.08866210790363449,euclidean
+nearest-neighbor,ZIM-1,ZIM-3,0.197,5,1.2543999333224651,-0.5063945294843615,euclidean
+nearest-neighbor,ZIM-2,ZIM-3,0.212,6,1.0962687337295833,-0.3164965809277256,euclidean
+nearest-neighbor,ZIM-3,ZIM-2,0.119,6,1.0962687337295838,-0.31649658092772603,euclidean

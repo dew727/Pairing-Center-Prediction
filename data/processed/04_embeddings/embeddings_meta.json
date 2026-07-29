@@ -1,0 +1,57 @@
+{
+  "model": "facebook/esm2_t12_35M_UR50D",
+  "pooling": "mean",
+  "embedding_dim": 480,
+  "note": "frozen ESM-2 feature extractor; swap model to esm2_t33_650M_UR50D later",
+  "created": "2026-06-29",
+  "proteins": {
+    "Cel_zim-1": {
+      "species": "C. elegans",
+      "paralog": "zim-1",
+      "protein_id": "T07G12.6b",
+      "length": 606
+    },
+    "Cel_zim-2": {
+      "species": "C. elegans",
+      "paralog": "zim-2",
+      "protein_id": "T07G12.10",
+      "length": 584
+    },
+    "Cel_zim-3": {
+      "species": "C. elegans",
+      "paralog": "zim-3",
+      "protein_id": "T07G12.11a",
+      "length": 581
+    },
+    "Cel_him-8": {
+      "species": "C. elegans",
+      "paralog": "him-8",
+      "protein_id": "T07G12.12a",
+      "length": 361
+    },
+    "Cbr_zim-1": {
+      "species": "C. briggsae",
+      "paralog": "zim-1",
+      "protein_id": "CBG12895",
+      "length": 563
+    },
+    "Cbr_zim-2": {
+      "species": "C. briggsae",
+      "paralog": "zim-2",
+      "protein_id": "CBG29927",
+      "length": 542
+    },
+    "Cbr_zim-3": {
+      "species": "C. briggsae",
+      "paralog": "zim-3",
+      "protein_id": "CBG12897a",
+      "length": 610
+    },
+    "Cbr_him-8": {
+      "species": "C. briggsae",
+      "paralog": "him-8",
+      "protein_id": "CBG12898a",
+      "length": 493
+    }
+  }
+}

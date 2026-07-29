@@ -1,0 +1,7 @@
+chromosome,paralog,recognition_conservation,anchor_status,anchored_motif,anchored_skill,anchored_confidence,anchorfree_motif,anchorfree_specificity,anchorfree_has_TTGG,recommendation
+II,Cbr-ZIM-1,0.79,CONSERVED,TTGGTCTTGTGGACCA,0.3,MEDIUM,CAGAAATTCAGA,0.99,False,TTGG anchor supported by conserved protein -> trust the anchored motif
+III,Cbr-ZIM-1,0.79,CONSERVED,TTGGTCTGCTAATTAT,0.86,HIGH,TCCAGGATTCCA,0.97,False,TTGG anchor supported by conserved protein -> trust the anchored motif
+I,Cbr-ZIM-3,0.53,INTERMEDIATE,TTGGGTTGGAAGAAAT,0.03,LOW,ATTTTGGACCAT,0.99,True,both candidates plausible; needs experimental disambiguation
+IV,Cbr-ZIM-3,0.53,INTERMEDIATE,TTGGGTCATGACCTAG,-0.02,MEDIUM,AATATGAGGATT,0.98,False,both candidates plausible; needs experimental disambiguation
+X,Cbr-HIM-8,0.27,DIVERGED,TTGGTAGTGGTTCCGC,0.03,MEDIUM,GTGATAGTTGAA,1.0,False,protein diverged -> anchor may have drifted; anchor-free candidate is a hypothesis
+V,Cbr-ZIM-2,0.24,DIVERGED,TTGGTACTGCTTAGCA,0.3,HIGH,GTCGTGGTCTCA,1.0,False,protein diverged -> anchor may have drifted; anchor-free candidate is a hypothesis

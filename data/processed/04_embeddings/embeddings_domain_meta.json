@@ -1,0 +1,41 @@
+{
+  "model": "facebook/esm2_t33_650M_UR50D",
+  "pooling": "mean over ZF1-ZF2-CTD domain",
+  "embedding_dim": 1280,
+  "domain_finder": "tandem C2H2 regex; region = [ZF1_start-5 : C-terminus]",
+  "created": "2026-06-30",
+  "regions": {
+    "Cel_zim-1": [
+      455,
+      606
+    ],
+    "Cel_zim-2": [
+      468,
+      584
+    ],
+    "Cel_zim-3": [
+      436,
+      581
+    ],
+    "Cel_him-8": [
+      237,
+      361
+    ],
+    "Cbr_zim-1": [
+      415,
+      563
+    ],
+    "Cbr_zim-2": [
+      415,
+      542
+    ],
+    "Cbr_zim-3": [
+      462,
+      610
+    ],
+    "Cbr_him-8": [
+      369,
+      493
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+chromosome,binds_protein,motif,reproduced_on_AF16,spacer,cluster_Mb,copies,period_bp,downstream_bits,motif_similar_to,similarity_skill,assignment_agrees,confidence
+III,Cbr-ZIM-1,TTGGTCTGCTAATTAT,True,2,0.49,102,44,15.5,ZIM-1,0.86,True,HIGH
+IV,Cbr-ZIM-3,TTGGGTCATGACCTAG,True,4,0.59,113,22,19.2,ZIM-3,-0.02,True,HIGH
+V,Cbr-ZIM-2,TTGGTACTGCTTAGCA,True,3,18.9,47,163,14.9,ZIM-1,0.3,False,HIGH
+X,Cbr-HIM-8,TTGGTAGTGGTTCCGC,True,3,20.98,39,140,18.2,HIM-8,0.03,True,HIGH
+II,Cbr-ZIM-1,TTGGTCTTGTGGACCA,True,3,15.05,34,931,8.5,ZIM-3,0.3,False,MEDIUM
+I,Cbr-ZIM-3,TTGGGTTGGAAGAAAT,True,2,14.25,103,288,2.3,ZIM-3,0.03,True,LOW

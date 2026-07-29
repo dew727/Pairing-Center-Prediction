@@ -1,0 +1,9 @@
+baseline,paralog,l2,n_variable_positions,distance,skill,metric
+learned-head (fine-tune only),HIM-8,10.0,6,0.9100017234928623,-0.09281065924498488,euclidean
+learned-head (fine-tune only),ZIM-1,10.0,5,0.9189541669987975,-0.10356154623454272,euclidean
+learned-head (fine-tune only),ZIM-2,10.0,6,0.7703475222481658,0.07489847337375743,euclidean
+learned-head (fine-tune only),ZIM-3,10.0,6,1.1419833020875376,-0.3713946830902186,euclidean
+"learned-head (pretrained, dim 12)",HIM-8,10.0,6,0.9108106873763845,-0.09378213471809071,euclidean
+"learned-head (pretrained, dim 12)",ZIM-1,10.0,5,0.9250667950656946,-0.11090213135109117,euclidean
+"learned-head (pretrained, dim 12)",ZIM-2,10.0,6,0.774702482220877,0.06966865176364334,euclidean
+"learned-head (pretrained, dim 12)",ZIM-3,10.0,6,1.1414075088826872,-0.3707032196176374,euclidean

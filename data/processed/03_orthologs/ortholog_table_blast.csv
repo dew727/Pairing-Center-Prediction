@@ -1,0 +1,5 @@
+ce_paralog,ce_protein,cb_protein,cb_gene,cb_locus,pident,qcovs,bitscore,evalue,rbh_locus,assignment_method,cb_chrom,cb_start,cb_end,cb_strand
+zim-1,T07G12.6b,CBG12895,CBG12895,,38.4,100,336.0,3.4e-108,zim-1,blastp + 1:1 assignment,I,10854071,10856228,+
+zim-3,T07G12.11a,CBG29927,CBG29927,,31.9,96,232.0,4.3e-69,zim-3,blastp + 1:1 assignment,I,10864025,10868532,+
+zim-2,T07G12.10,CBG12897a,CBG12897,,31.8,99,223.0,3.6e-65,zim-3,blastp + 1:1 assignment,I,10868974,10872471,+
+him-8,T07G12.12a,CBG12898a,CBG12898,Cbr-him-8,27.4,93,87.0,7.5e-19,him-8,curated (Cbr-him-8 name annotation),I,10872569,10876604,+

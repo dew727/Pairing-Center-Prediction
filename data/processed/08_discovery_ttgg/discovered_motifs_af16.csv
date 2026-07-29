@@ -1,0 +1,7 @@
+chromosome,binds_protein,discovered_motif,spacer,cluster_end,cluster_pos_Mb,dist_from_end_kb,copies,period_bp,downstream_bits,chrom_specificity,ce_paralog,ce_match_skill,expected_paralog,convergent,end_gappy,confidence
+I,Cbr-ZIM-3,TTGGATTGGAAGAAAT,2,right,14.13,1323,97,340,2.3,0.17,ZIM-3,0.04,ZIM-3,True,False,LOW
+II,Cbr-ZIM-3,TTGGCCTTGTGGACCA,3,right,15.16,1471,19,750,10.5,0.47,ZIM-3,0.33,ZIM-1,False,False,MEDIUM
+III,Cbr-ZIM-1,TTGGTCTGCTAATTAT,2,left,0.48,483,92,54,15.4,0.59,ZIM-1,0.86,ZIM-1,True,False,HIGH
+IV,Cbr-ZIM-3,TTGGGTCATGACCTAG,4,left,0.33,332,93,22,17.7,0.35,ZIM-3,-0.07,ZIM-3,True,False,MEDIUM
+V,Cbr-ZIM-1,TTGGTACTGCTTAGCA,3,right,18.42,1079,50,162,14.1,0.69,ZIM-1,0.31,ZIM-2,False,False,HIGH
+X,Cbr-HIM-8,TTGGTAGTGGTTCCGC,3,right,20.54,1001,60,140,20.7,0.45,HIM-8,0.01,HIM-8,True,False,MEDIUM

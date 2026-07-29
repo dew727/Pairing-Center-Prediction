@@ -1,0 +1,67 @@
+{
+  "source": "Phillips et al. 2009, Nat Cell Biol (DOI 10.1038/ncb1904), Table S3",
+  "bases": "ACGT",
+  "pwm_shape": "(4, L): rows A,C,G,T; columns positions; each column sums to 1",
+  "min_coverage": 0.5,
+  "pseudocount": 0.25,
+  "alignment": "leading-whitespace alignment from the source file (trusted, not re-anchored)",
+  "note_zim1": "No ZIM-1 SELEX data in 2009; motif from 2024 crystal structure instead.",
+  "motifs": {
+    "HIM-8": {
+      "source_file": "data/raw/selex/him-8-znf.txt",
+      "domain": "ZnF core",
+      "is_pairing_center_motif": true,
+      "n_sequences": 90,
+      "n_secondary_oligos_skipped": 1,
+      "width": 21,
+      "consensus": "GAATTGGCACGGTGCCAAGTC",
+      "kept_columns": [
+        4,
+        24
+      ],
+      "min_per_column_coverage": 48
+    },
+    "ZIM-2": {
+      "source_file": "data/raw/selex/zim-2-znf.txt",
+      "domain": "ZnF core",
+      "is_pairing_center_motif": true,
+      "n_sequences": 100,
+      "n_secondary_oligos_skipped": 1,
+      "width": 21,
+      "consensus": "ATCTTGGCAAGGGGCCAAATA",
+      "kept_columns": [
+        4,
+        24
+      ],
+      "min_per_column_coverage": 55
+    },
+    "ZIM-3": {
+      "source_file": "data/raw/selex/zim-3-znf.txt",
+      "domain": "ZnF core",
+      "is_pairing_center_motif": true,
+      "n_sequences": 141,
+      "n_secondary_oligos_skipped": 3,
+      "width": 22,
+      "consensus": "GACTTGGCATCGTGCCAAGTCT",
+      "kept_columns": [
+        8,
+        29
+      ],
+      "min_per_column_coverage": 76
+    },
+    "HIM-8-CTD": {
+      "source_file": "data/raw/selex/him-8-cterm.txt",
+      "domain": "C-terminus",
+      "is_pairing_center_motif": false,
+      "n_sequences": 115,
+      "n_secondary_oligos_skipped": 2,
+      "width": 23,
+      "consensus": "CCCAAGCACTGACCAACCCGCCC",
+      "kept_columns": [
+        5,
+        27
+      ],
+      "min_per_column_coverage": 59
+    }
+  }
+}

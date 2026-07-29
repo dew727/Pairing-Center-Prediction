@@ -1,0 +1,7 @@
+chromosome,end,discovered_consensus,spacer,n_instances,period_bp,info_bits,end_N_fraction,end_gappy,best_ce_paralog,ce_match_skill,expected_paralog,convergent
+I,left,TTGGATGGAAATTAGA,1,89,284,10.3,0.041,False,ZIM-1,0.02,ZIM-3,False
+II,right,TTGGTTTGGTAGATTT,2,90,233,9.3,0.026,False,ZIM-3,0.04,ZIM-1,False
+III,left,TTGGTCTGCTAATTAT,2,93,54,22.5,0.019,False,ZIM-1,0.85,ZIM-1,True
+IV,left,TTGGGTCATGACCTAG,4,104,22,23.0,0.047,False,ZIM-3,-0.05,ZIM-3,True
+V,right,TTGGTACTGCTAAGCA,3,61,251,14.5,0.014,False,ZIM-1,0.33,ZIM-2,False
+X,right,TTGGTAGTGGTTCCGC,3,64,140,26.1,0.037,False,HIM-8,0.01,HIM-8,True

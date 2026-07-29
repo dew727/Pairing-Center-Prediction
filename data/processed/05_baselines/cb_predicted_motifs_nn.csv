@@ -1,0 +1,5 @@
+cb_ortholog_of,predicted_as,predicted_motif,neighbor_cos
+HIM-8,ZIM-1,TTGGTCTGCTA,0.31
+ZIM-1,ZIM-1,TTGGTCTGCTA,0.512
+ZIM-2,ZIM-2,TTGGGCGCTGCT,0.299
+ZIM-3,ZIM-3,TTGGTTGAGGCT,0.506

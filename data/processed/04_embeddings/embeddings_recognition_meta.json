@@ -1,0 +1,7 @@
+{
+  "model": "facebook/esm2_t33_650M_UR50D",
+  "features": "mean over ZF1 recognition helix ++ mean over ZF2 recognition helix",
+  "embedding_dim": 2560,
+  "created": "2026-07-14",
+  "source": "Liu 2009 gene-conversion rationale: specificity is in the ZF recognition helices"
+}

@@ -1,0 +1,13 @@
+chromosome,end,candidate_motif,spacer,fold_enrichment,terminal_count,chrom_specificity,specific_to,genomic_hits,median_spacing_bp,best_ce_paralog,ce_match_skill,ce_paralog_for_this_chrom,convergent,low_complexity,tandem
+I,left,TTGGCTTGGCTT,2,9.3,15,0.73,II,15,5,ZIM-3,-0.26,ZIM-3,True,False,False
+I,right,TTGGATTTGTCT,3,7.4,10,1.0,I,10,28555,ZIM-3,-0.15,ZIM-3,True,False,False
+II,left,TTGGCTTGGCTT,2,25.8,41,0.73,II,41,5,ZIM-3,-0.26,ZIM-1,False,False,False
+II,right,TTGGCCTTGTGG,3,39.0,30,1.0,II,30,3473,ZIM-3,0.39,ZIM-1,False,False,True
+III,left,TTGGCCTGCTAA,2,40.3,83,0.81,III,83,1298,ZIM-1,0.67,ZIM-1,True,False,True
+III,right,TTGGCTTGAAAA,2,6.2,17,1.0,III,17,51355,ZIM-3,0.02,ZIM-1,False,False,False
+IV,left,TTGGGGCATGAC,4,41.7,18,1.0,IV,18,88,ZIM-3,-0.04,ZIM-3,True,False,True
+IV,right,TTGGTGTTTGCA,4,16.3,30,1.0,IV,30,1646,HIM-8,0.18,ZIM-3,False,False,True
+V,left,TTGGCTGATCCT,1,21.7,10,1.0,V,10,63,ZIM-2,0.23,ZIM-2,True,False,True
+V,right,TTGGTACTGCCT,3,45.0,12,1.0,V,12,4466,ZIM-1,0.02,ZIM-2,False,False,True
+X,left,TTGGGTAATGGG,4,27.4,10,1.0,X,10,138,ZIM-3,-0.04,HIM-8,False,False,True
+X,right,TTGGTAGTGGTT,3,40.8,58,1.0,X,58,140,HIM-8,0.02,HIM-8,True,False,True
