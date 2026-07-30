@@ -1,22 +1,22 @@
 # Pairing Center Prediction
 
 Predicting meiotic **pairing-center (PC) DNA motifs** in *Caenorhabditis briggsae* (and
-*C. remanei*), using the well-characterized *C. elegans* system as a reference.
+*C. remanei*), using the well-annotated *C. elegans* system as a reference.
 
 ## Background
 
-During meiosis, homologous chromosomes must find their partner. In *C. elegans* this is
-organized by **pairing centers** — regions near one end of each chromosome, bound by four
-paralogous zinc-finger proteins (**ZIM-1, ZIM-2, ZIM-3, HIM-8**) that each recognize a short
+During meiosis, homologous chromosomes must find their partner chromosome in a process called homologous pairing. In *C. elegans* this is
+organized by **pairing centers**, regions near one end of each chromosome, bound by four
+zinc-finger protein paralogs (**ZIM-1, ZIM-2, ZIM-3, HIM-8**) that each recognize a short
 DNA motif. All four motifs share a conserved **`TTGG`…`TG` framework** and differ mainly in the
 spacer between those sub-sites. The motifs in other *Caenorhabditis* species are unknown; this
 project predicts them.
 
-## The scientific arc (and an honest result)
+## The scientific arc
 
 Two fundamentally different strategies were tried, and the contrast is the main finding:
 
-1. **Predict the motif from the protein (machine learning).** Frozen ESM-2 embeddings of each
+1. **Predict the motif from the protein.** Frozen ESM-2 embeddings of each
    ZIM/HIM-8 protein → a small learned head → the DNA motif. **This does not work here**, and we
    show *why* with a baseline hierarchy (conserved floor → nearest-neighbour → learned head):
    none beat the floor. The reasons are structural — only **4 labelled proteins**, and (per Li
@@ -24,13 +24,13 @@ Two fundamentally different strategies were tried, and the contrast is the main 
    cannot read (the same reason AlphaFold-3 fails on this family). A rigorous negative result.
 
 2. **Discover the motif directly from the genome.** A pairing center is a **dense tandem array**
-   of its motif near a chromosome end — so the answer is written thousands of times in the DNA.
+   of its motif near a chromosome end, so the answer is already written thousands of times in the DNA.
    Locating those arrays and reading out a motif (PWM + EM refinement) **works**, because the
-   data is abundant and directly observable rather than learned from four examples.
+   data is abundant and directly observable rather than learned from four examples. The problem switches from being a seq2seq problem to      a data labeling one.
 
 ### Headline predictions (C. briggsae)
 
-De novo discovery, reproduced across **two independent assemblies** (AF16 + chromosome-level
+De novo discovery, reproduced across two independent assemblies (AF16 + chromosome-level
 QX1410), yields chromosome-specific, tandem, framework-following candidate motifs. The
 gold-standard calls (well-defined, reproduced, and agreeing with the expected paralog):
 
