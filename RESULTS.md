@@ -247,7 +247,7 @@ predictions (`discovered_motifs_final.csv`):
 | II  | Cbr-ZIM-1 | `TTGGTCTTGTGGACCA` | 3 | 34 | 931 bp | 8.5 | ZIM-3 (disagrees) | MEDIUM |
 | I   | Cbr-ZIM-3 | `TTGGGTTGGAAGAAAT` | 2 | 103 | 288 bp | 2.3 | ZIM-3 ✓ | LOW |
 
-**Gold-standard — 3 predictions where confidence is HIGH _and_ synteny agrees with motif
+**3 predictions where confidence is HIGH _and_ synteny agrees with motif
 similarity:** **Cbr-ZIM-1 → `TTGGTCTGCTAATTAT` (chr III)**, **Cbr-ZIM-3 → `TTGGGTCATGACCTAG`
 (chr IV)**, and **Cbr-HIM-8 → `TTGGTAGTGGTTCCGC` (chr X)** — the last a **previously
 uncharacterised candidate for the C. briggsae X-chromosome pairing center**, exactly the
