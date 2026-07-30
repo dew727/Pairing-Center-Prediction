@@ -1,38 +1,40 @@
 # Pairing Center Prediction
 
-Predicting meiotic **pairing-center (PC) DNA motifs** in *Caenorhabditis briggsae* (and
+Predicting meiotic pairing-center (PC) DNA motifs in *Caenorhabditis briggsae* (and
 *C. remanei*), using the well-characterized *C. elegans* system as a reference.
 
 ## Background
 
-During meiosis, homologous chromosomes must find their partner. In *C. elegans* this is
-organized by **pairing centers** — regions near one end of each chromosome, bound by four
-paralogous zinc-finger proteins (**ZIM-1, ZIM-2, ZIM-3, HIM-8**) that each recognize a short
-DNA motif. All four motifs share a conserved **`TTGG`…`TG` framework** and differ mainly in the
-spacer between those sub-sites. The motifs in other *Caenorhabditis* species are unknown; this
-project predicts them.
+During meiosis, homologous chromosomes have to find their partner. In *C. elegans* this is
+organized by pairing centers, regions near one end of each chromosome that are bound by four
+paralogous zinc-finger proteins (ZIM-1, ZIM-2, ZIM-3, HIM-8). Each protein recognizes a short
+DNA motif. All four motifs share a conserved `TTGG`...`TG` framework and differ mainly in the
+spacer between those two sub-sites. The motifs in other *Caenorhabditis* species are not known,
+and this project tries to predict them.
 
-## The scientific arc (and an honest result)
+## Approach and main result
 
-Two fundamentally different strategies were tried, and the contrast is the main finding:
+Two different strategies were tried, and the contrast between them is the main result.
 
-1. **Predict the motif from the protein (machine learning).** Frozen ESM-2 embeddings of each
-   ZIM/HIM-8 protein → a small learned head → the DNA motif. **This does not work here**, and we
-   show *why* with a baseline hierarchy (conserved floor → nearest-neighbour → learned head):
-   none beat the floor. The reasons are structural — only **4 labelled proteins**, and (per Li
-   et al. 2024) the specificity determinant is a **CTD conformation** that a sequence embedding
-   cannot read (the same reason AlphaFold-3 fails on this family). A rigorous negative result.
+1. Predict the motif from the protein (machine learning). Frozen ESM-2 embeddings of each
+   ZIM/HIM-8 protein feed a small learned head that outputs the DNA motif. This does not work
+   here, and the repo shows why with a baseline hierarchy (conserved floor, nearest-neighbour,
+   learned head): none of them beat the floor. There are two structural reasons. First, there
+   are only 4 labelled proteins. Second, following Li et al. 2024, the specificity determinant
+   is a CTD conformation that a sequence embedding cannot read, which is also why AlphaFold-3
+   fails on this family. It is reported as a negative result.
 
-2. **Discover the motif directly from the genome.** A pairing center is a **dense tandem array**
-   of its motif near a chromosome end — so the answer is written thousands of times in the DNA.
-   Locating those arrays and reading out a motif (PWM + EM refinement) **works**, because the
+2. Discover the motif directly from the genome. A pairing center is a dense tandem array of its
+   motif near a chromosome end, so the motif appears in many copies in the genomic sequence.
+   Locating those arrays and reading out a motif (a PWM refined by EM) does work, because the
    data is abundant and directly observable rather than learned from four examples.
 
-### Headline predictions (C. briggsae)
+### Predictions (C. briggsae)
 
-De novo discovery, reproduced across **two independent assemblies** (AF16 + chromosome-level
-QX1410), yields chromosome-specific, tandem, framework-following candidate motifs. The
-gold-standard calls (well-defined, reproduced, and agreeing with the expected paralog):
+De novo discovery was run on two independent assemblies (AF16 and the chromosome-level QX1410)
+and gives chromosome-specific, tandem, framework-following candidate motifs. The strongest
+calls, which are well-defined, reproduced on both assemblies, and agree with the expected
+paralog:
 
 | Chromosome | Predicted binder | Motif | Note |
 |---|---|---|---|
@@ -40,17 +42,18 @@ gold-standard calls (well-defined, reproduced, and agreeing with the expected pa
 | X | Cbr-HIM-8 | `TTGGTAGTGGTTCCGC` | novel candidate for the *C. briggsae* X pairing center |
 | IV | Cbr-ZIM-3 | `TTGGGTCATGACCTAG` | tandem, chromosome-specific |
 
-The same TTGG-framework ZIM-1 motif is recovered at chromosomes II/III across **three species**
-(*C. elegans*, *C. briggsae*, *C. remanei*) — evidence the motif is evolutionarily conserved.
-These are computational predictions to be confirmed experimentally (e.g. ChIP-seq).
+The same TTGG-framework ZIM-1 motif turns up at chromosomes II/III in all three species
+(*C. elegans*, *C. briggsae*, *C. remanei*), which is evidence that the motif is
+evolutionarily conserved. These are computational predictions and still need experimental
+confirmation, for example by ChIP-seq.
 
 ### Guarding against circular reasoning
 
-Because searching for `TTGG` could be self-fulfilling, the repo includes drift-safe controls:
-an **anchor-free** discovery run (no TTGG assumption) and a **recognition-residue conservation**
-analysis that decides, per protein, whether the TTGG anchor is justified (conserved binder) or
-whether the motif may have drifted (diverged binder, e.g. HIM-8). See `RESULTS.md` for the full
-reasoning.
+Searching for `TTGG` could be self-fulfilling, so the repo includes two controls: an
+anchor-free discovery run that assumes no TTGG at all, and a recognition-residue conservation
+analysis that decides, per protein, whether the TTGG anchor is justified (a conserved binder)
+or whether the motif may have drifted (a diverged binder, such as HIM-8). See `RESULTS.md`
+for the full reasoning.
 
 ## Repository layout
 
@@ -83,19 +86,19 @@ python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Then run the scripts in the order documented in **`RESULTS.md`** (from `eda.py` through the
-discovery scripts). All outputs are written into categorized subfolders under `data/processed/`
-via `src/paths.py`. The full-pipeline reproduce commands and expected numbers are in `RESULTS.md`.
+Then run the scripts in the order given in `RESULTS.md`, from `eda.py` through the discovery
+scripts. Outputs are written into categorized subfolders under `data/processed/` via
+`src/paths.py`. The full reproduce commands and expected numbers are in `RESULTS.md`.
 
 ## Data sources
 
-Genomes/annotations are large and **not committed** — download from WormBase ParaSite (WBPS19):
-*C. elegans* `PRJNA13758`, *C. briggsae* `PRJNA10731` (AF16) and `QX1410_PRJNA784955`
-(chromosome-level), *C. remanei* `PRJNA577507`. SELEX training data: Phillips et al. 2009,
-Table S3. Structural reference: Li et al. 2024, *Nat Commun*.
+Genomes and annotations are large and are not committed. Download them from WormBase ParaSite
+(WBPS19): *C. elegans* `PRJNA13758`, *C. briggsae* `PRJNA10731` (AF16) and
+`QX1410_PRJNA784955` (chromosome-level), *C. remanei* `PRJNA577507`. SELEX training data is
+from Phillips et al. 2009, Table S3. The structural reference is Li et al. 2024, *Nat Commun*.
 
 ## Documentation
 
-- **`RESULTS.md`** — detailed, layer-by-layer results, figures, and interpretation.
-- **`REFERENCES.md`** — methods and biology reading list.
-- **`data/processed/README.md`** — index of every generated artifact by method.
+- `RESULTS.md`: detailed, layer-by-layer results, figures, and interpretation.
+- `REFERENCES.md`: methods and biology reading list.
+- `data/processed/README.md`: index of every generated artifact by method.
