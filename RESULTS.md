@@ -106,12 +106,12 @@ follow-up is a maximum-likelihood tree of the zinc-finger domain only.)
 Every method is scored by the one locked metric (`src/metrics.py`): mean per-column
 distance on the **variable** motif positions only (the conserved TTGG/TG anchors are
 excluded), rescaled to a **skill** score where 0 = no better than a blind uniform
-guess and 1 = the true motif exactly. Evaluation is leave-one-paralog-out (LOPO)
+guess and 1 = the true motif exactly. Evaluation is leave-one-paralog-out
 over the four C. elegans paralogs. Cross-paralog predictions are aligned to the
 held-out protein's frame by the shared TTGG **and** TG anchors (`anchored_transfer`
 in `src/motifs.py`), TG-registered.
 
-**Headline result: no baseline beats the conserved-consensus floor on internal LOPO.**
+**Headline result: no baseline beats the conserved-consensus floor on internal .**
 
 | Baseline | Mean skill | Reading |
 |----------|-----------:|---------|
@@ -141,14 +141,14 @@ Why this is expected, not a failure of implementation:
   tracks the fine-tune-only head to within ±0.01 skill across the whole L2 sweep.
 
 Interpretation: four paralogs with hyper-specific variable positions are **below the
-threshold at which internal LOPO can demonstrate protein→motif generalisation**. This
+threshold at which internal leave-one-paralog-out can demonstrate protein→motif generalization**. This
 does not doom the project — it relocates the evidence. The case for any predicted
 motif must come from the **Tier 2/3 biological evaluation** (does the predicted
 C. briggsae motif cluster at a chromosome end, chromosome-specifically, with
 tandem-repeat spacing, and agree with the model-free terminal k-mer enrichment?) and,
 ultimately, from far more training data (SELEX/ChIP across more species). A caveat on
 the negative result itself: with n=4, all skill numbers carry large variance; they
-bound what LOPO can *show*, not necessarily what a scaled-up model could achieve.
+bound what leave-one-paralog-out can *show*, not necessarily what a scaled-up model could achieve.
 
 **C. briggsae predictions (`cb_predicted_motifs_nn.csv`).** The nearest-neighbour rule
 applied cross-species (C. elegans average used for centering; the C. briggsae proteins
@@ -160,7 +160,7 @@ HIM-8 being the divergent short paralog seen throughout the ortholog analysis. T
 are the deliverable predictions to carry into the Tier 2/3 checks; they have no
 internal skill score because no C. briggsae ground truth exists.
 
-**Leakage discipline.** LOPO centering means are fit on the training fold only; the
+**Leakage discipline.**  centering means are fit on the training fold only; the
 JASPAR pretraining set excludes any nematode / zim / him-8 factor by name and species.
 
 ---
