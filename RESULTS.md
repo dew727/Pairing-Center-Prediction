@@ -101,7 +101,7 @@ expansion, i.e. the zim subfamily is a set of **co-orthologs** with no distinct
 zim-2-vs-zim-3 ortholog. (Bootstrap support is low, ~36–42%; the rigorous
 follow-up is a maximum-likelihood tree of the zinc-finger domain only.)
 
-## Layer 4 — Baselines & the learned head (internal LOPO eval)
+## Layer 4 — Baselines & the learned head (internal eval)
 
 Every method is scored by the one locked metric (`src/metrics.py`): mean per-column
 distance on the **variable** motif positions only (the conserved TTGG/TG anchors are
