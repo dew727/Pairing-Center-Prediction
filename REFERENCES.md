@@ -54,7 +54,6 @@ formally. Domain papers marked † are the project's primary sources.
 - **Felsenstein 1978**, *Syst Zool*, "Cases in which parsimony or compatibility
   methods will be positively misleading" — long-branch attraction (the caveat on
   the species-clustering topology).
-- Textbook: **Felsenstein, *Inferring Phylogenies* (2004)**.
 
 ## Planned modeling (ESM-2 → motif)
 - **Lin et al. 2023**, *Science*, "Evolutionary-scale prediction of atomic-level
