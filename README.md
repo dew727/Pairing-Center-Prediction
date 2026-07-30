@@ -89,7 +89,7 @@ via `src/paths.py`. The full-pipeline reproduce commands and expected numbers ar
 
 ## Data sources
 
-Genomes/annotations are large and **not committed** — download from WormBase ParaSite (WBPS19):
+Genomes/annotations are large and **not committed**. Please download from WormBase ParaSite (WBPS19):
 *C. elegans* `PRJNA13758`, *C. briggsae* `PRJNA10731` (AF16) and `QX1410_PRJNA784955`
 (chromosome-level), *C. remanei* `PRJNA577507`. SELEX training data: Phillips et al. 2009,
 Table S3. Structural reference: Li et al. 2024, *Nat Commun*.
