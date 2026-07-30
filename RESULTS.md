@@ -214,7 +214,7 @@ convergent support for the project premise and the ortholog/chromosome assignmen
 
 ## Layer 6 — De novo motif discovery from the genome (`discover_motifs.py`)
 
-The reframing that actually works. Protein→motif prediction is unsolvable here (4 examples;
+Protein→motif prediction is unsolvable here (4 examples;
 a conformational determinant sequence models can't read). But the genome IS sequenced, and a
 pairing center is a **dense tandem array of a short motif near a chromosome end** — so we
 find the motif *directly from the genome*, where thousands of copies sit, instead of
