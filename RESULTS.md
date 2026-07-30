@@ -15,7 +15,7 @@ PRJNA10731 (AF16) and QX1410_PRJNA784955 (chromosome-level), *C. remanei* PRJNA5
 | `build_gene_tree.py` | ZIM/HIM-8 family gene tree (`zim_family_tree.*`) |
 | `run_baselines.py` | Baselines 1–2 scored by the locked metric (`baseline_scores.csv`) + C. briggsae predictions (`cb_predicted_motifs_nn.csv`) |
 | `pretrain_jaspar.py` | JASPAR C2H2 → PLS projection for pretraining (`jaspar_projection.npz`) |
-| `train_head.py` | Baseline 3 learned head, LOPO (`head_scores.csv`, `head_l2_sweep.csv`) |
+| `train_head.py` | Baseline 3 learned head, Leave One Paralog Out (`head_scores.csv`, `head_l2_sweep.csv`) |
 | `recognition_baseline.py` | biology-informed ZF-recognition-helix features + region-localization test |
 | `tier23_evaluation.py` | Tier 2/3 biology of the C. briggsae predictions (`cb_pc_candidates.csv`, `.png`) |
 | `discover_motifs.py` | de novo PC-motif discovery from the genome (`discovered_motifs.csv/npz/png`) |
