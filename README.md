@@ -109,6 +109,66 @@ Then run the scripts in the order given in `RESULTS.md`, from `eda.py` through t
 scripts. Outputs are written into categorized subfolders under `data/processed/` via
 `src/paths.py`. The full reproduce commands and expected numbers are in `RESULTS.md`.
 
+### Running the multi-species model
+
+This needs network access to Google Drive (for the genomes) and to Hugging Face (for the
+ESM-2 weights), so run it somewhere both resolve — a locked-down CI or sandbox will fail
+at one or the other.
+
+**1. Get the genomes into `data/raw/`,** one folder per species, each holding that
+species' genomic FASTA, protein FASTA and GFF3. Either download the shared folder from
+the Drive web UI and unzip it there, or pull it directly:
+
+```bash
+pip install gdown
+gdown --folder '<the shared Drive folder URL>' -O data/raw/
+```
+
+Layout it expects (filenames are matched by convention, not hardcoded — a FASTA whose
+name contains `protein` or `pep` is the proteome, `genomic`/`dna` is the assembly):
+
+```
+data/raw/
+  c_elegans/     *.genomic.fa.gz  *.protein.fa.gz  *.annotations.gff3.gz
+  c_briggsae/    ...
+  <species>/     ...
+```
+
+**2. Draft and check the species manifest.** This is where the "only complete
+annotations" rule is applied, so it is worth two minutes of attention:
+
+```bash
+python run_multispecies.py --scan     # drafts data/species_manifest.csv from data/raw/
+```
+
+Open `data/species_manifest.csv` and set `annotation_complete` to match the data source's
+own listing of which annotations are finished. The draft guesses `no` for any species with
+no proteome or no GFF3, since that is what an unfinished annotation looks like on disk, but
+a species can be listed as incomplete while still shipping files — only the source's
+listing settles it. The gate honours that column *and* independently verifies the files;
+a species has to pass both.
+
+**3. Run it.**
+
+```bash
+python run_multispecies.py            # gate -> labels -> embeddings -> train
+```
+
+Stages are skipped once finished, so an interrupted run resumes. `--force` redoes
+everything, `--from labels` restarts at a stage, `--domain` trains on whole-domain
+features instead of recognition-helix ones. Expect the label stage to take a few minutes
+per genome (it counts k-mers genome-wide); its results are cached per species.
+
+**4. Read the result.** Two numbers decide it, and neither is the raw skill score:
+
+- `silver_label_control.csv` — how well the same discovery recovers the *known*
+  C. elegans motifs. This is the quality of the training labels. If it is near zero, the
+  labels are noise and nothing downstream is meaningful.
+- `multispecies_summary.csv` — the learned head's margin over **group-consensus**. Motifs
+  are joined to proteins by synteny, so a model can score well by learning only which
+  paralog group a protein belongs to. Beating the uniform floor shows nothing; beating
+  group-consensus is the evidence that the protein language model contributed.
+
 ## Data sources
 
 Genomes and annotations are large and are not committed. Download them from WormBase ParaSite

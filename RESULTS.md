@@ -396,7 +396,7 @@ python build_multispecies_labels.py    # orthologs + discovery -> silver_labels.
                                        # (slow: counts k-mers per genome; results cached)
 python embed_multispecies.py           # ESM-2 features for every species' proteins
 python train_multispecies.py           # LOSO + gold test + regularisation sweep
-python tests/test_multispecies.py      # 15 synthetic-data tests of the above (~20 s)
+python run_multispecies.py             # or: all four stages above, in one command
 ```
 
 `prepare_species.py --scan` only drafts the manifest from what is on disk; a species
