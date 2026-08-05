@@ -29,6 +29,20 @@ Two different strategies were tried, and the contrast between them is the main r
    Locating those arrays and reading out a motif (a PWM refined by EM) does work, because the
    data is abundant and directly observable rather than learned from four examples.
 
+3. Scale the protein model across species, using (2) to generate the labels (1) lacked. Every
+   additional species with a finished annotation contributes its own ZIM/HIM-8 proteins paired
+   with the motifs read off its own chromosome ends, so the training set grows with the number
+   of genomes instead of being pinned at four. These are *silver* labels — discovered, not
+   measured — so they are weighted by confidence, and the four measured *C. elegans* motifs are
+   held back as the test set. Implemented and verified on synthetic data; not yet run on the
+   real genomes. See `RESULTS.md` Layer 7.
+
+   The bar this has to clear is deliberately not the uniform floor. Because a motif is joined to
+   a protein by synteny, a model can score well by learning only which paralog group a protein
+   belongs to. So every result is reported against a **group-consensus baseline** that does
+   exactly that and ignores the protein embedding entirely; only beating *it* is evidence that
+   the protein language model contributed anything.
+
 ### Predictions (C. briggsae)
 
 De novo discovery was run on two independent assemblies (AF16 and the chromosome-level QX1410)
@@ -72,7 +86,12 @@ discover_motifs.py   de novo motif discovery (TTGG framework), AF16 + QX1410 + r
 discover_denovo.py   drift-safe control: anchor-free, specificity-selected discovery
 discover_anchored.py drift-aware sheet (TTGG vs anchor-free + conservation)
 crem_ttgg_check.py / compare_runs.py   C. remanei cross-species replication
+prepare_species.py   annotation-completeness gate: which species are fit to train on
+build_multispecies_labels.py   orthologs + per-species discovery -> silver training labels
+embed_multispecies.py / train_multispecies.py   the multi-species model (leave-one-species-out)
+tests/               synthetic-data tests of the multi-species pipeline
 data/
+  species_manifest.csv   the species registry + which annotations are complete
   raw/               genomes / annotations / SELEX (NOT in git; download from WormBase)
   processed/         all generated results, organized by method (see data/processed/README.md)
 RESULTS.md           layer-by-layer results and interpretation

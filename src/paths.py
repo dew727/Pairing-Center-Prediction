@@ -11,6 +11,9 @@ BASE = 'data/processed'
 # Ordered (prefix -> subfolder) rules; the first matching prefix wins. Prefixes are
 # disjoint under str.startswith, so ordering is just for readability.
 _RULES = [
+    ('species_',            '12_multispecies'),   # species QC / annotation gate
+    ('silver_',             '12_multispecies'),   # cross-species discovered labels
+    ('multispecies_',       '12_multispecies'),   # embeddings + trained-model scores
     ('discovered_motifs',   '08_discovery_ttgg'),
     ('denovo_motifs',       '09_discovery_anchorfree'),
     ('anchored_predictions', '10_anchored_reconciliation'),

@@ -6,3 +6,6 @@ seaborn
 jupyterlab
 pyfaidx
 gffutils
+# Protein language model features (compute_embeddings.py, embed_multispecies.py).
+torch
+transformers

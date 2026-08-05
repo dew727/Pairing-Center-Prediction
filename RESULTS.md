@@ -259,6 +259,111 @@ three gold-standard cases (both lines of evidence agree) but ambiguous for chr V
 
 ---
 
+## Layer 7 — Scaling the protein model across species (`train_multispecies.py`)
+
+Layer 4 concluded that four labelled proteins is below the threshold at which
+protein→motif generalisation can be demonstrated, and explicitly named the way
+forward: *far more training data*. This layer takes that route.
+
+### Where extra labels come from
+
+Extra genomes do not directly add labelled proteins. The motif of a ZIM/HIM-8
+protein has only ever been *measured* in *C. elegans* (SELEX 2009, structures 2024),
+and nobody has run SELEX on another *Caenorhabditis*. So the count of gold labels
+stays at four no matter how many genomes are downloaded.
+
+What extra genomes supply is the other half of each pair. Layer 6 established that a
+pairing-center motif can be read straight off a genome, because a pairing center *is*
+a dense tandem array of its motif near a chromosome end. So for every species with a
+finished annotation we can build training pairs directly:
+
+| | source | what it gives |
+|---|---|---|
+| the protein | annotated proteome → ZIM/HIM-8 orthologs | one protein per paralog |
+| the motif | genome → terminal tandem array (Layer 6 discovery) | one motif per chromosome |
+| the join | synteny: which paralog binds which chromosome | a (protein, motif) pair |
+
+These are **silver** labels: discovered predictions, not measurements. Each carries a
+confidence tier and a training weight (HIGH 1.0, MEDIUM 0.4, LOW 0.0, halved again if
+the chromosome end is gappy), so a shaky label nudges the model and a strong one
+moves it. The training set now grows with the number of genomes instead of being
+pinned at four.
+
+### The three things that could make this fraudulent, and what stops each
+
+**1. Circular labels.** The motif for chromosome X is assigned to HIM-8 *because*
+HIM-8 binds the X. A model can therefore score well by learning nothing except which
+paralog group a protein belongs to, then emitting that group's usual motif. Beating
+the uniform floor proves nothing here.
+
+The fix is that the bar is not the floor, it is the **group-consensus baseline**,
+which does exactly that hollow thing on purpose: it ignores the embedding entirely
+and predicts a protein's motif from its paralog group alone. The reported headline is
+`learned-head minus group-consensus`. Only that difference is evidence that the
+protein language model contributed anything.
+
+**2. Bad labels.** If discovery produces noise, a model trained on it is meaningless.
+So *C. elegans* is run through the identical discovery procedure as a **control**,
+and the discovered motifs are scored against the four measured ones
+(`silver_label_control.csv`). That number is a direct measurement of silver-label
+quality, and it is reported before any model is trained. If it is near zero, the
+labels are noise and nothing downstream should be believed.
+
+**3. Leakage.** Centering means, feature scales, and the group consensus are all fit
+on the training split only, never on the held-out species. This is asserted by a
+negative-control test: with embeddings replaced by pure noise, the head must *fail*
+to beat group-consensus. A head that wins on noise is measuring a leak.
+
+### The evaluation the extra data buys
+
+With four proteins the only possible split was leave-one-paralog-out. Now there are
+two better questions:
+
+- **Leave-one-species-out** — hold out an entire genome, train on the rest, predict
+  the held-out species' motifs. This asks what a usable predictor actually has to do.
+- **Gold test** — train on discovered labels only, test on the four measured
+  *C. elegans* motifs. No *C. elegans* label is trained on, and the test labels did
+  not come from this pipeline, so the number cannot be inflated by the
+  label-generating procedure. Its native-frame skill is directly comparable to the
+  Layer 4 table (floor 0.000, nearest-neighbour −0.31, learned head −0.12).
+
+Cross-species motifs differ in length, so skill is computed in the shared canonical
+frame (the 9 biologically-aligned slots, registered on TTGG and TG). The metric's
+definition is unchanged — mean per-column distance over variable positions only,
+rescaled against a uniform guess — it is just applied in a frame where motifs of
+different lengths are comparable. The native-frame score is reported alongside.
+
+Features default to the **recognition-helix** embedding, which Layer 5 found
+substantially sharper than whole-domain pooling (−0.077 vs −0.31); `--domain`
+switches back for comparison.
+
+### Status
+
+The pipeline is implemented and its logic is verified, but it has **not yet been run
+on the real genomes** — the deposited data was not reachable from the environment
+this was written in. What is verified, by `tests/test_multispecies.py` (15 tests,
+synthetic data):
+
+- On a synthetic genome with tandem arrays planted at chromosome ends, discovery
+  recovers **all planted motifs exactly**, rates them HIGH confidence, and the synteny
+  join hands each to the correct paralog — the whole label-generating path, end to end.
+- The head beats group-consensus when the embedding genuinely predicts the motif
+  (+0.69 vs +0.43) and **fails** to beat it when the embeddings are noise (+0.12 vs
+  +0.43), so the evaluation is not leaking.
+- The metric's endpoints hold (1.0 exact, 0.0 blind), the canonical frame round-trips,
+  orthologs are assigned one-to-one, and the annotation gate rejects both
+  declared-incomplete species and stub proteomes.
+
+Running it needs the genomes in `data/raw/`, one folder per species. The honest
+expectation to hold: this removes the *data* barrier that Layer 4 identified, but not
+the *structural* one Layer 5 identified — Li et al. 2024 place the specificity
+determinant in a CTD conformation, which a sequence embedding cannot read. More data
+cannot fix a determinant that is absent from the input. So a null result here is a
+real possibility, and it would be a sharper null than Layer 4's: it would separate
+"too few examples" from "the wrong input", which four proteins could never do.
+
+---
+
 ## Reproducing
 
 From the project root, with the venv active and raw data in `data/raw/`:
@@ -279,6 +384,26 @@ python discover_motifs.py <qx1410.fa.gz> qx1410   # discovery on the chromosome-
 python discover_motifs.py <af16.fa.gz>   af16     # discovery on AF16 (cross-check)
 python discover_motifs.py --reconcile             # final cross-assembly prediction sheet
 ```
+
+Layer 7 (multi-species) is a separate chain, run after the genomes are in
+`data/raw/` with one folder per species:
+
+```bash
+python prepare_species.py --scan       # draft data/species_manifest.csv from data/raw/
+                                       # then CHECK its annotation_complete column
+python prepare_species.py              # apply the annotation gate -> species_qc.csv
+python build_multispecies_labels.py    # orthologs + discovery -> silver_labels.csv
+                                       # (slow: counts k-mers per genome; results cached)
+python embed_multispecies.py           # ESM-2 features for every species' proteins
+python train_multispecies.py           # LOSO + gold test + regularisation sweep
+python tests/test_multispecies.py      # 15 synthetic-data tests of the above (~20 s)
+```
+
+`prepare_species.py --scan` only drafts the manifest from what is on disk; a species
+with no proteome or no GFF3 is drafted as annotation-incomplete, since that is what an
+unfinished annotation looks like on disk. Reconcile that column against the data
+source's own listing before training — the gate honours the declared status *and*
+independently verifies the files, and a species has to pass both.
 
 The first five scripts are deterministic and reproduce the numbers in this document.
 `pretrain_jaspar.py` downloads from JASPAR/UniProt on first run and caches under

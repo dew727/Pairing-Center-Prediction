@@ -16,6 +16,17 @@ Folders are ordered by pipeline stage.
 | `09_discovery_anchorfree/` | drift-safe control: anchor-free, specificity-selected discovery (C. briggsae, C. remanei) | `discover_denovo.py` | `denovo_motifs_qx1410.csv` |
 | `10_anchored_reconciliation/` | drift-aware sheet: TTGG vs anchor-free motif per chromosome + recognition-residue conservation | `discover_anchored.py` | `anchored_predictions.csv` |
 | `11_cremanei/` | C. remanei cross-species replication (TTGG run + run comparison) | `crem_ttgg_check.py`, `compare_runs.py` | `crem_run_comparison.csv` |
+| `12_multispecies/` | the multi-species retrain: annotation gate, cross-species silver labels, ESM-2 features, leave-one-species-out + gold-test scores | `prepare_species.py`, `build_multispecies_labels.py`, `embed_multispecies.py`, `train_multispecies.py` | `multispecies_summary.csv` |
+
+Key files inside `12_multispecies/`:
+
+| File | What it settles |
+|------|-----------------|
+| `species_qc.csv` | which species passed the annotation gate, and the reason for every exclusion |
+| `silver_labels.csv` | the training set: one (protein, motif) pair per chromosome per species, with confidence and weight |
+| `silver_label_control.csv` | how well the same discovery recovers the *known* C. elegans motifs — the measure of label quality |
+| `multispecies_summary.csv` | mean skill per method; the learned head is only meaningful insofar as it beats `group-consensus` |
+| `multispecies_l2_sweep.csv` | that comparison across regularisation strengths, so no conclusion rests on one setting |
 
 Raw genomes/annotations are **not** in git (large; see `RESULTS.md` for WormBase accessions).
 All paths are defined centrally in `src/paths.py`, so re-running any script writes back into
